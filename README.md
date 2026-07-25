@@ -46,7 +46,7 @@ The AI agent chains tools automatically — describe your target in plain Englis
 | `network_recon` | nmap port scan + banner grab | Shodan + Censys | ❌ |
 | `dns` | DNS records + SPF/DMARC analysis | — | ❌ |
 | `whois` | Domain registrant info | — | ❌ |
-| `breach` | Check local breach database | HIBP API ($$$) | ❌ |
+| `breach` | Query local breach database (you supply the data) | HIBP API ($$$) | ❌ |
 | `github` | GitHub profile, repos, commit emails | — | ❌* |
 | `phone` | Phone carrier, location, line type | phoneinfoga | ❌ |
 | `ipgeo` | IP geolocation (GeoLite2 local DB) | IP2Location API ($$$) | ❌ |
@@ -54,6 +54,8 @@ The AI agent chains tools automatically — describe your target in plain Englis
 | `paste` | Search paste dumps (psbdmp.ws) | — | ❌ |
 
 *GitHub: 60 req/min free without token, 5000 with optional token.
+
+> **Note on breach_check:** This module queries a **local** SQLite database that you populate yourself. It does not crawl the dark web, access Telegram channels, or query HIBP's backend. If you need comprehensive breach data, [HIBP](https://haveibeenpwned.com) and [intelx](https://intelx.io) are the right tools. The breach module is for researchers who already have breach compilations and want to query them locally without sending emails to a third-party API.
 
 ## Quick Start
 
