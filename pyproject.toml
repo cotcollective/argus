@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "argus"
+version = "0.1.0"
+description = "Local-first OSINT framework — 100% open source, zero API keys required"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    "dnspython>=2.8",
+    "python-whois>=0.9",
+    "requests>=2.31",
+    "rich>=15.0",
+    "click>=8.1",
+    "prompt-toolkit>=3.0",
+    "aiohttp>=3.9",
+    "beautifulsoup4>=4.12",
+    "mcp>=1.0",
+]
+
+[project.scripts]
+argus = "argus.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
