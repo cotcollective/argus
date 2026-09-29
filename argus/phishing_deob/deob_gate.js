@@ -30,7 +30,20 @@ if (!file) { console.error('usage: node deob_gate.js <file.js>'); process.exit(2
 
 let code;
 try { code = fs.readFileSync(file, 'utf8'); } catch (e) {
-  console.error('unreadable: ' + e.message); process.exit(2);
+  console.error('unreadable: ' + e.message);
+  process.exit(2);            // distinct de 1: l'entree est invalide, pas le verdict
+}
+
+// Reject inputs that are not text before doing any work. A binary blob or an
+// empty file is a caller error, not a "not confirmed" verdict -- conflating
+// them would make a broken pipeline look like a clean negative result.
+if (code.length === 0) {
+  console.error('empty file: nothing to analyse');
+  process.exit(2);
+}
+if (code.includes('\u0000')) {
+  console.error('binary file (NUL byte detected): not analysable');
+  process.exit(2);
 }
 
 // Meme extraction que deep_probe.js: tous les litteraux de chaine >= 12 chars.

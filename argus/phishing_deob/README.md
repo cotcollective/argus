@@ -49,6 +49,47 @@ Les contrôles négatifs sont ce qui rend le gate crédible : un test qui passe 
 tout ne teste rien. Le seuil est fixé à 10/12 pour absorber les variantes de
 build sans perdre la discrimination.
 
+### Taux de faux positif sur JS légitime
+
+40 bundles réels (jQuery, TypeScript compiler, pyright 3,1 Mo, playwright,
+xterm) passés au gate :
+
+```
+score max observe sur du JS legitime : 2/12
+distribution : 2/12 -> 3   |   1/12 -> 8   |   0/12 -> 29
+faux positifs (>=10/12)     : 0
+```
+
+Écart de 6× entre le max de la classe négative (2/12) et le seuil (10/12).
+Le plus gros bundle du corpus (3,1 Mo) plafonne à 2/12 : le gate ne dégrade
+pas avec la taille, parce qu'il compte des sous-chaînes de noms de propriétés
+et non des occurrences pondérées par la fréquence.
+
+### Cas négatif dur : un kit concurrent
+
+Un kit rival qui **reconstruit le même leurre social-engineering** (review
+carousel, toast, comment panel) et embarque les mêmes briques publiques
+(pont Telegram WebApp, détecteur Facebook, `postMessage`, `localStorage`) :
+
+| Cas rival | Score | Verdict |
+|---|---|---|
+| kit Telegram générique | 0/12 | NOT CONFIRMED |
+| kit rival avec leurre décoré | 3/12 | NOT CONFIRMED |
+
+C'est le test qui valide la granularité : les marqueurs discriminent
+**l'opérateur**, pas la catégorie « kit de phishing Telegram ».
+
+### Codes de sortie
+
+| Code | Signification |
+|---|---|
+| 0 | famille confirmée |
+| 1 | non confirmé (verdict négatif légitime) |
+| 2 | entrée invalide (fichier absent, vide, binaire, argument manquant) |
+
+Le 2 est distinct du 1 délibérément : un fichier vide doit échouer bruyamment
+en CI, pas ressembler à un résultat négatif propre.
+
 ## Limites connues
 
 - Le payload principal du kit ne s'exécute qu'après une interaction (clic,
