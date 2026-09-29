@@ -54,6 +54,7 @@
   },
   "infra_markers": ["west263-registrar", "cloudflare-universal-cert", "gcs-typo-cdn"],
   "probes_requiring_browser": false,
-  "validated_on": "1 live case 2026-09-29 (conf 0.95, 25 findings, 4.1s — case ref private)",
+  "validated_on": "2 live cases 2026-09-29: alcampoes/IGA + fesaft/Giant Tiger (conf 0.95 chacun, 25 findings, 4.1s — case refs private)",
+  "confirmed_domains": ["alcampoes.com", "fesaft.com", "perkga.com", "galavs.com"],
   "notes": "Marque servie PAR DOMAINE (pas par géo). Le nom de domaine = actif lexical recycle."
 }
