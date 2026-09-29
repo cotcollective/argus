@@ -299,4 +299,28 @@ class PhishingKitModule(BaseModule):
                                     f"{fam} conf={score:.2f}", {"markers": hits}))
             findings.append(Finding(self.name, target, "phase4_final_confidence",
                                     f"{score:.2f}", {"family": fam, "markers_count": len(hits)}))
+            # --- PHASE 2 ESCALADE (conditional) ---
+            # allume le navigateur SEULEMENT si la statique n'a rien extrait
+            if (score < 0.4 and not pool_total and kw.get("browser") != "never") or kw.get("browser") == "force":
+                findings.append(Finding(self.name, target, "phase2_escalation",
+                                        "static extraction empty → browser probe"))
+                self._run_browser_escalade(target, url, proxy, findings)
+        elif kw.get("browser") == "force":
+            # pas de JS du tout → escalade direct
+            findings.append(Finding(self.name, target, "phase2_escalation",
+                                    "no static JS at all → browser probe"))
+            self._run_browser_escalade(target, url, proxy, findings)
         return findings
+
+    def _run_browser_escalade(self, target, url, proxy, findings):
+        try:
+            from argus.modules.p2_browser import probe as browser_probe, DEFAULT_PROXY
+            fp = browser_probe(url, proxy=proxy or DEFAULT_PROXY)
+            for f in fp:
+                key = f.get("key", "p2")
+                findings.append(Finding(self.name, target, key,
+                                        str(f.get("value", ""))[:200], f.get("extra") or {}))
+                if "boomerang_confirmed" in key:
+                    findings.append(Finding(self.name, target, "phase2_decoy_boomerang", f["value"]))
+        except Exception as e:
+            findings.append(Finding(self.name, target, "phase2_error", str(e)[:150]))
