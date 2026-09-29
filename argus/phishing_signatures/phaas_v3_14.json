@@ -1,0 +1,59 @@
+{
+  "family_id": "phaas_v3.14",
+  "first_seen": "2026-09-29",
+  "confidence": 0.95,
+  "static_markers": [
+    "box_project_secret_key_2025",
+    "vmb_",
+    "BeeTools",
+    "createBeeApi",
+    "comment_panel",
+    "toufangID",
+    "ret_key_2025",
+    "Hm_lvt_",
+    "Hm_lpvt_"
+  ],
+  "crypto_profile": {
+    "type": "xor-session-prefix",
+    "master_key": "box_project_secret_key_2025",
+    "derivation": "key + sessionKey (8-16 alnum)",
+    "format": "sessionKey + ':' + b64(xor(payload, key + sessionKey))",
+    "applies_to": ["user-signature header", "server config blob"]
+  },
+  "gate_profile": {
+    "type": "orientation + platform",
+    "decoy_path": "/emit/404/p",
+    "boomerang": true,
+    "bug": ["system.xll never assigned", "'Max' instead of 'Mac'"],
+    "real_gate": "window.screen.availWidth > window.screen.availHeight",
+    "token_pattern": "[a-z]{3}[a-z]{2}[a-z]{3}/[0-9a-f]{26}",
+    "token_regeneration": "per-request (3 fetches = 3 different tokens)"
+  },
+  "exfil_profile": {
+    "style": "rotative-same-origin",
+    "paths": ["/v1/api/?appid=", "/log/m?std="],
+    "header": "user-signature",
+    "url_params_are_lures": true,
+    "method": "GET"
+  },
+  "tracker_stack": ["baidu-tongji", "gtag", "beetools"],
+  "config_source": {
+    "encrypted_by_server": true,
+    "decryppable_with_static_keys": true,
+    "fields": ["brand", "comments", "surveys", "verify", "tongjis", "theme", "base",
+               "jpDomains", "links {click,whatsapp,telegram,line,viber,fxs}", "rules",
+               "lang", "USE_REVIEW_LOGIC", "isGo2share", "person", "progressPercent"],
+    "telegram_webapp": "initDataUnsafe.user siphoned"
+  },
+  "obfuscator_profile": {
+    "vm_custom": {"prefix": "vmb_", "arrays": ["_$R (AES-encrypted blob)", "_$K (XOR key)"]},
+    "string_pool": {"alphabet": "rotated base64 (lowercase-first)",
+                    "rotation_k": 289, "pool_size": 2210,
+                    "checksum_equation": 901254,
+                    "wrapper_offset_relation": "idx = arg - 93 (master) / arg - 382 (crypto scope)"}
+  },
+  "infra_markers": ["west263-registrar", "cloudflare-universal-cert", "gcs-typo-cdn"],
+  "probes_requiring_browser": false,
+  "validated_on": "1 live case 2026-09-29 (conf 0.95, 25 findings, 4.1s — case ref private)",
+  "notes": "Marque servie PAR DOMAINE (pas par géo). Le nom de domaine = actif lexical recycle."
+}

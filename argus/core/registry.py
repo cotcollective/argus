@@ -57,6 +57,7 @@ def auto_discover():
         "argus.modules.ip_geolocation",
         "argus.modules.dork_generator",
         "argus.modules.paste_search",
+        "argus.modules.phishing_kit",
     ]
     for mod_name in modules:
         try:

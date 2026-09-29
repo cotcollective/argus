@@ -144,11 +144,27 @@ def subdomains(target, json_out):
 
 @main.command()
 @click.argument("target")
-@click.option("--secrets/--no-secrets", default=True)
-@click.option("--endpoints/--no-endpoints", default=True)
-@click.option("--errors/--no-errors", default=True)
 @click.option("--json", "json_out", is_flag=True)
-def crawl(target, secrets, endpoints, errors, json_out):
+@click.option("--proxy", default=None, help="Proxy URL (e.g. socks5h://127.0.0.1:9050)")
+def phishing(target, json_out, proxy):
+    """Phishing kit recon — gates, ephemeral tokens, obfuscateur, crypto keys, family match."""
+    if proxy:
+        import socket as _s
+        orig = _s.socket
+        try:
+            import socks  # PySocks if present
+            _s.setdefaultproxy if False else None
+            socks.set_default_proxy(socks.SOCKS5, "127.0.0.1", 9050, rdns=True) if proxy.startswith("socks") else None
+            _s.socket = socks.socksocket
+        except Exception:
+            pass
+    _run_module("phishing", target, json_out=json_out)
+
+
+@main.command()
+@click.argument("target")
+@click.option("--json", "json_out", is_flag=True)
+def crawl(target, json_out):
     """Web crawler + secret hunter (cariddi wrapper)."""
     _run_module("crawler", target, json_out=json_out)
 
