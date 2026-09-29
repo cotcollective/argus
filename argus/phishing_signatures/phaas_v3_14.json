@@ -99,7 +99,9 @@
     "alcampoes.com",
     "fesaft.com",
     "perkga.com",
-    "galavs.com"
+    "galavs.com",
+    "jeancouturewardq.com"
   ],
+  "confirmed_lure_brands": ["IGA (QC FR)", "Giant Tiger (QC EN)"],
   "notes": "Marque servie PAR DOMAINE (pas par géo). Le nom de domaine = actif lexical recycle."
 }
