@@ -112,7 +112,15 @@
     "tims.iymx.top"
   ],
   "dns_status": {
-    "tims.iymx.top": "registered 2026-08-27 (West263/ZDNS), zero NS, no A record, does not resolve"
+    "tims.iymx.top": "does not resolve (no A/AAAA/NS/MX/CNAME). Subdomain of iymx.top, NOT a West263 registration -- parent domain iymx.top is Alibaba Cloud/HiChina, created 2025-11-10. No per-subdomain whois record, so no registration date is observable for this name."
+  },
+  "registration_dates_verified": {
+    "alcampoes.com": "2026-08-12 (West263)",
+    "jeancouturewardq.com": "2026-08-27 (West263)",
+    "fesaft.com": "2026-09-02 (West263)",
+    "perkga.com": "2026-09-02 (West263)",
+    "galavs.com": "2026-09-02 (West263)",
+    "iymx.top": "2025-11-10 (Alibaba Cloud/HiChina) -- parent of tims.iymx.top"
   },
   "watch_trigger": "A-record appears on tims.iymx.top => kit live (warning IOC, do not probe active)"
 }
