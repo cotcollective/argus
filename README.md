@@ -52,7 +52,7 @@ The AI agent chains tools automatically — describe your target in plain Englis
 | `ipgeo` | IP geolocation (GeoLite2 local DB) | IP2Location API ($$$) | ❌ |
 | `dorks` | Generate 12 Google dork URLs | Bright Data SERP | ❌ |
 | `paste` | Search paste dumps (psbdmp.ws) | — | ❌ |
-| `phishing` | Phishing kit recon: gate/decoy detection, ephemeral tokens, obfuscateur VM + string-pool decode, crypto key extraction, kit-family match | urlscan.io + any.run (partial) | ❌ |
+| `phishing` | Phishing kit recon: gate/decoy detection, ephemeral tokens, obfuscateur VM + string-pool decode, crypto key extraction, kit-family match, conditional browser escalation (fingerprint-locked) | urlscan.io + any.run + any.run sandbox | ❌ |
 
 *GitHub: 60 req/min free without token, 5000 with optional token.
 
