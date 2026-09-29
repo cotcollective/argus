@@ -186,7 +186,7 @@ def _correlate(pool: list[str], js: bytes, gate: dict, extra_text: str = "") -> 
         ("vmb_", "obfuscateur VM custom", 0.15),
         ("beetools", "tracker BeeTools", 0.10),
         ("hm_lvt_", "cookies Baidu Tongji", 0.10),
-        (".{3}[a-z0-9]{4}/[0-9a-f]{26}", "token format (path embed)", 0.05),
+        (r"[a-z]{3}\w{5,9}/[0-9A-Za-z]{26}", "token format (path embed)", 0.05),
         ("comment_panel", "faux commentaires live", 0.10),
         ("toufangID", "trafic payant chinois", 0.10),
         ("/v1/api/?appid=", "exfil relatif", 0.10),
