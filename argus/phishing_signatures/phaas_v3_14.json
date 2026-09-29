@@ -100,8 +100,19 @@
     "fesaft.com",
     "perkga.com",
     "galavs.com",
-    "jeancouturewardq.com"
+    "jeancouturewardq.com",
+    "tims.iymx.top"
   ],
-  "confirmed_lure_brands": ["IGA (QC FR)", "Giant Tiger (QC EN)"],
-  "notes": "Marque servie PAR DOMAINE (pas par géo). Le nom de domaine = actif lexical recycle."
+  "confirmed_lure_brands": [
+    "IGA (QC FR)",
+    "Giant Tiger (QC EN)"
+  ],
+  "notes": "Marque servie PAR DOMAINE (pas par géo). Le nom de domaine = actif lexical recycle.",
+  "pending_deploy_domains": [
+    "tims.iymx.top"
+  ],
+  "dns_status": {
+    "tims.iymx.top": "registered 2026-08-27 (West263/ZDNS), zero NS, no A record, does not resolve"
+  },
+  "watch_trigger": "A-record appears on tims.iymx.top => kit live (warning IOC, do not probe active)"
 }
